@@ -1,4 +1,4 @@
-#![feature(backtrace)]
+// #![feature(backtrace)]
 #![recursion_limit = "256"]
 
 use std::convert::TryInto;
@@ -159,7 +159,7 @@ fn init_proxy() -> Option<Proxy> {
 
 fn print_error<E: std::error::Error>(err: E) {
     eprintln!("Error: {}", err);
-    let mut deepest_backtrace = err.backtrace();
+    // let mut deepest_backtrace = err.backtrace();
 
     let mut err: &dyn std::error::Error = &err;
     if let Some(e) = err.source() {
@@ -173,14 +173,14 @@ fn print_error<E: std::error::Error>(err: E) {
                 eprint!("    ")
             };
             eprintln!("{}", e);
-            if let Some(backtrace) = e.backtrace() {
-                deepest_backtrace = Some(backtrace);
-            }
+            // if let Some(backtrace) = e.backtrace() {
+            //     deepest_backtrace = Some(backtrace);
+            // }
             err = e;
         }
     }
 
-    if let Some(backtrace) = deepest_backtrace {
-        eprintln!("\nBacktrace:\n{}", backtrace);
-    }
+    // if let Some(backtrace) = deepest_backtrace {
+    //     eprintln!("\nBacktrace:\n{}", backtrace);
+    // }
 }

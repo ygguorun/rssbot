@@ -121,19 +121,21 @@ async fn fetch_and_push_updates(
                 }
             }
             FeedUpdate::Title(new_title) => {
-                let msg = tr!(
-                    "feed_renamed",
-                    link = Escape(&feed.link),
-                    title = Escape(&feed.title),
-                    new_title = Escape(&new_title)
-                );
-                push_updates(
-                    &bot,
-                    &db,
-                    feed.subscribers.iter().copied(),
-                    parameters::Text::with_html(&msg),
-                )
-                .await?;
+                if !new_title.contains("undefined") {
+                    let msg = tr!(
+                        "feed_renamed",
+                        link = Escape(&feed.link),
+                        title = Escape(&feed.title),
+                        new_title = Escape(&new_title)
+                    );
+                    push_updates(
+                        &bot,
+                        &db,
+                        feed.subscribers.iter().copied(),
+                        parameters::Text::with_html(&msg),
+                    )
+                    .await?;
+                }
             }
         }
     }
