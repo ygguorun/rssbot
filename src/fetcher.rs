@@ -121,7 +121,7 @@ async fn fetch_and_push_updates(
                 }
             }
             FeedUpdate::Title(new_title) => {
-                if !new_title.contains("undefined") {
+                if !new_title.contains("undefined") && !&feed.title.contains("undefined") {
                     let msg = tr!(
                         "feed_renamed",
                         link = Escape(&feed.link),
